@@ -1,0 +1,103 @@
+# Samantha Long
+# Candidate Prospect Form
+# 5/2/2024
+
+# Import tkinter Module
+import tkinter as tk
+
+# Import Pillow Module
+import PIL
+from PIL import Image, ImageTk
+from tkinter import *
+
+# Set root
+root = tk.Tk()
+root.title("Candidate Prospect Form")
+
+# Set geometry of root
+canvas = tk.Canvas(root, width=300, height=50)
+canvas.grid(columnspan=3)
+
+# Input logo for root window
+logo = PIL.Image.open('logo.png')
+logo = ImageTk.PhotoImage(logo)
+logo_label = tk.Label(image=logo)
+logo_label.image = logo
+logo_label.grid(column=1,row = 2)
+
+# Introduction of Company
+intro_company = tk.Label (root, text="At Long Incorporated we strive to match great people with great customers.")
+intro_company.grid(columnspan = 3, column = 0, row = 0)
+# Welcome Message
+welcome_message = tk.Label(root, text="Welcome! Please tell a little bit about yourself!")
+welcome_message.grid(columnspan=3, column=0, row=1)
+
+# Get Started Function
+def get_started():
+    top = tk.Toplevel()
+    top.title("Introduce Yourself")
+    top.config(width=600, height=300)
+    
+    # Label and entry boxes for prospect candidate information
+    name = tk.Label(top, text="Name")
+    name.grid(column=0, row=0)
+    name_entry = tk.Entry(top)
+    name_entry.grid(column=1, row=0)
+    phone_number = tk.Label(top, text="Phone Number")
+    phone_number.grid(column=0, row=1)
+    phone_number_entry = tk.Entry(top)
+    phone_number_entry.grid(column=1, row=1)
+    email = tk.Label(top, text="Email")
+    email.grid(column=0, row=2)
+    email_entry = tk.Entry(top)
+    email_entry.grid(column=1, row=2)
+    # Label and Button for Resume import
+    import_file_label = tk.Label(top, text="Upload TXT file types")
+    import_file_label.grid(column=0, row=3)
+    import_file_btn = tk.Button(top, text="Select file", bg="#808080", command=import_file)
+    import_file_btn.grid(column=1, row=4)
+    # Submit button for completion
+    submit_button = tk.Button(top, text="Submit", bg="#808080", command=submit_form)
+    submit_button.grid(column=1, row=5)
+    # Close Window
+    button_close = tk.Button(top, text="Close window", bg="#808080", command= top.destroy)
+    button_close.grid(column=1, row=6)
+    canvas = tk.Canvas(top, width=600, height=300)
+    canvas.grid(columnspan=3)
+    
+    
+
+# Button to navigate to Prospect Form
+get_started_btn = tk.Button(root, text="Get Started", bg="#808080", height=2, width=15, command=get_started)
+get_started_btn.grid(column=1, row=2)
+# Button to close window
+close_window_btn = tk.Button(root, text="Close Window", bg="#808080",command=root.destroy)
+close_window_btn.grid(column=1, row=3)
+
+canvas = tk.Canvas(root, width=200, height=200)
+canvas.grid(columnspan=3)
+
+
+# Submit form function
+def submit_form():
+    third_window = tk.Toplevel()
+    third_window.title("Congratulations!")
+    third_window.config(width=600, height=300)
+    # Information for Next Steps
+    next_steps = tk.Label(third_window, text="Thank you for introducing yourself! Be on the lookout for further communication.")
+    next_steps.grid(columnspan=3)
+    canvas = tk.Canvas(third_window, width=200, height=200)
+    # Button to Close Window
+    button_close = tk.Button(third_window, text="Close window", bg="#808080", command= third_window.destroy)
+    button_close.grid(column=1, row=1)
+
+
+# Upload Resume function
+from tkinter import filedialog
+def import_file():
+    file_path = filedialog.askopenfilename(title = "Select a file", filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
+    if file_path:
+        print("Selected File:", file_path)
+
+# Call main
+root.mainloop()
